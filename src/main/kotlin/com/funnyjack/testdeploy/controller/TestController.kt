@@ -1,9 +1,6 @@
 package com.funnyjack.testdeploy.controller
 
-import com.funnyjack.testdeploy.model.TestPatchModel
-import com.funnyjack.testdeploy.model.TestSearchFilter
-import com.funnyjack.testdeploy.model.TestViewModel
-import com.funnyjack.testdeploy.model.toViewModel
+import com.funnyjack.testdeploy.model.*
 import com.funnyjack.testdeploy.service.TestService
 import com.funnyjack.testdeploy.utils.SearchFilterCombineOperation
 import jakarta.validation.Valid
@@ -29,6 +26,13 @@ class TestController(
     ): Page<TestViewModel> {
         return testService.search(searchFilter.toSpecification(searchFilterCombineOperation), pageable)
             .map { it.toViewModel() }
+    }
+
+    @PostMapping
+    fun createTest(
+        @Valid @RequestBody creationModel: TestCreationModel
+    ): TestViewModel {
+        return testService.create(creationModel).toViewModel()
     }
 
     @GetMapping("{name}")
