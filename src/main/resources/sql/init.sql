@@ -1,5 +1,5 @@
 create
-database if not exists test;
+database if not exists testDeploy;
 use
 test;
 create table if not exists test
