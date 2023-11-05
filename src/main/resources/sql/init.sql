@@ -1,7 +1,7 @@
 create
 database if not exists testDeploy;
 use
-test;
+testDeploy;
 create table if not exists test
 (
     name varchar
