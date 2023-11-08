@@ -6,12 +6,8 @@ import com.funnyjack.testdeploy.jpaspecificationdsl.distinct
 import com.funnyjack.testdeploy.jpaspecificationdsl.like
 import com.funnyjack.testdeploy.utils.SearchFilterCombineOperation
 import com.funnyjack.testdeploy.utils.fullTrim
-import jakarta.validation.constraints.NotBlank
-import org.hibernate.validator.constraints.Length
 import org.springframework.data.jpa.domain.Specification
 
-//import javax.validation.constraints.NotBlank
-//import org.hibernate.validator.constraints.Length
 //
 data class TestSearchFilter(
     val nameLike: String? = null,
@@ -31,18 +27,12 @@ data class TestSearchFilter(
 }
 
 data class TestCreationModel(
-    @field:Length(max = 128)
-    @field:NotBlank
     val name: String,
-    @field:Length(max = 128)
-    @field:NotBlank
     val message: String
 )
 
 data class TestPatchModel(
-    @field:Length(max = 128)
     val name: String? = null,
-    @field:Length(max = 128)
     val message: String? = null
 )
 

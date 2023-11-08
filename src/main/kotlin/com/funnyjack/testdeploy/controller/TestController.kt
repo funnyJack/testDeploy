@@ -3,7 +3,6 @@ package com.funnyjack.testdeploy.controller
 import com.funnyjack.testdeploy.model.*
 import com.funnyjack.testdeploy.service.TestService
 import com.funnyjack.testdeploy.utils.SearchFilterCombineOperation
-import jakarta.validation.Valid
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
@@ -19,7 +18,7 @@ class TestController(
 ) {
     @PostMapping("search")
     fun searchTests(
-        @Valid @RequestBody searchFilter: TestSearchFilter,
+            @RequestBody searchFilter: TestSearchFilter,
         @RequestParam(required = false, defaultValue = "OR")
         searchFilterCombineOperation: SearchFilterCombineOperation,
         pageable: Pageable,
@@ -30,7 +29,7 @@ class TestController(
 
     @PostMapping
     fun createTest(
-        @Valid @RequestBody creationModel: TestCreationModel
+            @RequestBody creationModel: TestCreationModel
     ): TestViewModel {
         return testService.create(creationModel).toViewModel()
     }
@@ -45,7 +44,7 @@ class TestController(
     @PatchMapping("{name}")
     fun modifyTest(
         @PathVariable name: String,
-        @Valid @RequestBody patchModel: TestPatchModel
+        @RequestBody patchModel: TestPatchModel
     ): TestViewModel {
         val test = testService.get(name)
         return testService.modify(test, patchModel).toViewModel()
