@@ -4,8 +4,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
-import org.springframework.data.repository.CrudRepository
-import org.springframework.data.repository.PagingAndSortingRepository
+import org.springframework.data.r2dbc.repository.R2dbcRepository
 import org.springframework.stereotype.Repository
 
 @Entity
@@ -17,5 +16,4 @@ class Test(
 )
 
 @Repository
-interface TestRepository : CrudRepository<Test, String>, PagingAndSortingRepository<Test, String>,
-    JpaSpecificationExecutor<Test>
+interface TestRepository : R2dbcRepository<Test, String>, JpaSpecificationExecutor<Test>

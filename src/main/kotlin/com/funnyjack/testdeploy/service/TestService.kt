@@ -2,26 +2,24 @@ package com.funnyjack.testdeploy.service
 
 import com.funnyjack.testdeploy.entity.Test
 import com.funnyjack.testdeploy.entity.TestRepository
-import com.funnyjack.testdeploy.exception.ResourceNotFoundException
 import com.funnyjack.testdeploy.model.TestCreationModel
 import com.funnyjack.testdeploy.model.TestPatchModel
 import com.hiczp.spring.error.BadRequestException
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Mono
 
 @Service
 class TestService(
     private val testRepository: TestRepository
 ) {
-    fun get(name: String): Test = testRepository.findById(name).orElseThrow {
-        ResourceNotFoundException(Test::class)
-    }
+    fun get(name: String): Mono<Test> = testRepository.findById(name)
 
     fun search(specification: Specification<Test>, pageable: Pageable) =
         testRepository.findAll(specification, pageable)
 
-    fun create(creationModel: TestCreationModel): Test {
+    fun create(creationModel: TestCreationModel): Mono<Test> {
         ensureNameUnique(creationModel.name)
         return Test(
             name = creationModel.name,
@@ -29,7 +27,7 @@ class TestService(
         ).save()
     }
 
-    fun modify(test: Test, patchModel: TestPatchModel): Test {
+    fun modify(test: Test, patchModel: TestPatchModel): Mono<Test> {
         patchModel.name?.let {
             ensureNameUnique(it)
         }
@@ -40,10 +38,10 @@ class TestService(
     }
 
     fun delete(name: String) =
-        testRepository.delete(get(name))
+            get(name).block()?.let { testRepository.delete(it) }
 
     private fun ensureNameUnique(name: String) {
-        if (testRepository.existsById(name)) {
+        if (testRepository.existsById(name).block()!!) {
             throw BadRequestException("Request name already exists")
         }
     }
