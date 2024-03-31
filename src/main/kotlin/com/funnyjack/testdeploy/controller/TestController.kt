@@ -1,13 +1,14 @@
 package com.funnyjack.testdeploy.controller
 
-import com.funnyjack.testdeploy.model.*
+import com.funnyjack.testdeploy.model.TestCreationModel
+import com.funnyjack.testdeploy.model.TestPatchModel
+import com.funnyjack.testdeploy.model.TestViewModel
+import com.funnyjack.testdeploy.model.toViewModel
 import com.funnyjack.testdeploy.service.TestService
-import com.funnyjack.testdeploy.utils.SearchFilterCombineOperation
-import org.springframework.data.domain.Page
-import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Mono
 
 
 @Transactional(rollbackFor = [Throwable::class])
@@ -16,45 +17,46 @@ import org.springframework.web.bind.annotation.*
 class TestController(
     private val testService: TestService
 ) {
-    @PostMapping("search")
-    fun searchTests(
-            @RequestBody searchFilter: TestSearchFilter,
-        @RequestParam(required = false, defaultValue = "OR")
-        searchFilterCombineOperation: SearchFilterCombineOperation,
-        pageable: Pageable,
-    ): Page<TestViewModel> {
-        return testService.search(searchFilter.toSpecification(searchFilterCombineOperation), pageable)
-            .map { it.toViewModel() }
-    }
+//    @PostMapping("search")
+//    fun searchTests(
+//            @RequestBody searchFilter: TestSearchFilter,
+//        @RequestParam(required = false, defaultValue = "OR")
+//        searchFilterCombineOperation: SearchFilterCombineOperation,
+//        pageable: Pageable,
+//    ): Page<TestViewModel> {
+//        return testService.search(searchFilter.toSpecification(searchFilterCombineOperation), pageable)
+//            .map { it.toViewModel() }
+//    }
 
     @PostMapping
     fun createTest(
             @RequestBody creationModel: TestCreationModel
-    ): TestViewModel {
-        return testService.create(creationModel).toViewModel()
+    ): Mono<TestViewModel> {
+        return testService.create(creationModel).map { it.toViewModel() }
     }
 
     @GetMapping("{name}")
     fun getTest(
         @PathVariable name: String,
-    ): TestViewModel {
-        return testService.get(name).toViewModel()
+    ): Mono<TestViewModel> {
+        return testService.get(name).map { it.toViewModel() }
     }
 
     @PatchMapping("{name}")
     fun modifyTest(
         @PathVariable name: String,
         @RequestBody patchModel: TestPatchModel
-    ): TestViewModel {
+    ): Mono<TestViewModel> {
         val test = testService.get(name)
-        return testService.modify(test, patchModel).toViewModel()
+        return testService.modify(test, patchModel).map { it.toViewModel() }
     }
 
     @DeleteMapping("{name}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteTest(
         @PathVariable name: String
-    ) {
-        testService.delete(name)
+    ): Mono<Void> {
+        val test = testService.get(name)
+        return testService.delete(test)
     }
 }
