@@ -36,11 +36,15 @@ dependencies {
 //kotlin
 dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-reactor'
 }
 
 //errors
 dependencies {
-    implementation 'com.github.czp3009:spring-errors:0.0.1'
+    implementation 'com.github.czp3009:spring-errors:0.0.2'
 }
 
 // jpa

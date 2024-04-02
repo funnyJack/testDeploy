@@ -1,21 +1,25 @@
-create
-database if not exists testDeploy;
-use
+CREATE
+DATABASE IF NOT EXISTS testDeploy;
+USE
 testDeploy;
-create table if not exists test
+CREATE TABLE IF NOT EXISTS test
 (
-    name varchar
-(
-    128
-) not null,
-    message varchar
-(
-    128
-) not null,
-    primary key
-(
+    id
+    BIGINT
+    AUTO_INCREMENT,
     name
+    VARCHAR
+(
+    128
+) NOT NULL,
+    message VARCHAR
+(
+    128
+) NOT NULL,
+    PRIMARY KEY
+(
+    id
 )
     );
 
-insert into test value ("鹏力","你好，我叫鹏力");
+INSERT INTO test VALUE(1,"鹏力","你好，我叫鹏力");

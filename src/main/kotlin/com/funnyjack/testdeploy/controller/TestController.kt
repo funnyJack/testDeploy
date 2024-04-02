@@ -8,14 +8,14 @@ import com.funnyjack.testdeploy.service.TestService
 import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
-import reactor.core.publisher.Mono
+
 
 
 @Transactional(rollbackFor = [Throwable::class])
 @RestController
 @RequestMapping("test")
 class TestController(
-    private val testService: TestService
+        private val testService: TestService
 ) {
 //    @PostMapping("search")
 //    fun searchTests(
@@ -29,34 +29,34 @@ class TestController(
 //    }
 
     @PostMapping
-    fun createTest(
+    suspend fun createTest(
             @RequestBody creationModel: TestCreationModel
-    ): Mono<TestViewModel> {
-        return testService.create(creationModel).map { it.toViewModel() }
+    ): TestViewModel {
+        return testService.create(creationModel).toViewModel()
     }
 
     @GetMapping("{name}")
-    fun getTest(
-        @PathVariable name: String,
-    ): Mono<TestViewModel> {
-        return testService.get(name).map { it.toViewModel() }
+    suspend fun getTest(
+            @PathVariable name: String,
+    ): TestViewModel {
+        return testService.get(name).toViewModel()
     }
 
     @PatchMapping("{name}")
-    fun modifyTest(
-        @PathVariable name: String,
-        @RequestBody patchModel: TestPatchModel
-    ): Mono<TestViewModel> {
+    suspend fun modifyTest(
+            @PathVariable name: String,
+            @RequestBody patchModel: TestPatchModel
+    ): TestViewModel {
         val test = testService.get(name)
-        return testService.modify(test, patchModel).map { it.toViewModel() }
+        return testService.modify(test, patchModel).toViewModel()
     }
 
     @DeleteMapping("{name}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deleteTest(
-        @PathVariable name: String
-    ): Mono<Void> {
+    suspend fun deleteTest(
+            @PathVariable name: String
+    ) {
         val test = testService.get(name)
-        return testService.delete(test)
+        testService.delete(test)
     }
 }
