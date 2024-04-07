@@ -1,1 +1,16 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+        maven { url 'https://repo.spring.io/release' }
+        maven { url 'https://repo.spring.io/milestone' }
+    }
+}
+
 rootProject.name = 'testDeploy'
+
+// starter
+include 'spring-test-starter'
+
+// frontend service
+include 'monolith-service'

@@ -1,0 +1,45 @@
+apply plugin: 'kotlin-spring'
+apply plugin: 'kotlin-jpa'
+apply plugin: 'org.springframework.boot'
+
+//spring
+dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+// https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    implementation 'org.springframework:spring-webmvc:6.1.5'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+//kotlin
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-reactor
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-reactor'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-test
+    testImplementation group: 'org.jetbrains.kotlin', name: 'kotlin-test'
+}
+
+//errors
+dependencies {
+    implementation 'com.github.czp3009:spring-errors:0.0.2'
+}
+
+// jpa
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    api group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+}
+
+
+//database driver
+dependencies {
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    runtimeOnly 'com.mysql:mysql-connector-j'
+}
+
+dependencies {
+    implementation project(':spring-test-starter')
+}

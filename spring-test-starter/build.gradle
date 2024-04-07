@@ -1,0 +1,19 @@
+apply plugin: 'kotlin-spring'
+
+//spring
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
+    api 'org.springframework.boot:spring-boot-starter-test:3.2.4'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+    compileOnly 'org.springframework.boot:spring-boot-starter-jdbc:3.2.4'
+}
+
+//test
+dependencies {
+    // https://mvnrepository.com/artifact/org.testcontainers/testcontainers
+    implementation 'org.testcontainers:testcontainers:1.19.7'
+    // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
+    implementation 'org.testcontainers:junit-jupiter:1.19.7'
+    // https://mvnrepository.com/artifact/org.testcontainers/mysql
+    compileOnly 'org.testcontainers:mysql:1.19.7'
+}
