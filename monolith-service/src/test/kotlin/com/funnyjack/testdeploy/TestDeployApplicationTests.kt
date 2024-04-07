@@ -6,6 +6,7 @@ import com.funnyjack.testdeploy.model.TestViewModel
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.web.reactive.server.WebTestClient
+
 import kotlin.test.assertEquals
 
 
@@ -20,6 +21,6 @@ class TestDeployApplicationTests @Autowired constructor(
             .expectBody(TestViewModel::class.java)
             .returnResult().responseBody!!
         assertEquals(testViewModel.name, "test")
-        assertEquals(testViewModel.name, "testCreate")
+        assertEquals(testViewModel.message, "testCreate")
     }
 }

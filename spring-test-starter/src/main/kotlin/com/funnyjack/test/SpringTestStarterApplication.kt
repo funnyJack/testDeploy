@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
 
 //junit test base class must be an abstract class, can't be an interface
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @SpringJUnitConfig(initializers = [MysqlContainerInitializer::class])
 @AutoConfigureWebTestClient
 @ActiveProfiles("local", "test")
