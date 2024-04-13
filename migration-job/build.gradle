@@ -1,0 +1,22 @@
+apply plugin: 'kotlin-spring'
+apply plugin: 'org.springframework.boot'
+
+//spring
+dependencies {
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
+}
+
+//unix domain socket
+dependencies {
+    // https://mvnrepository.com/artifact/com.kohlschutter.junixsocket/junixsocket-core
+    runtimeOnly group: 'com.kohlschutter.junixsocket', name: 'junixsocket-core'
+    // https://mvnrepository.com/artifact/com.kohlschutter.junixsocket/junixsocket-mysql
+    runtimeOnly group: 'com.kohlschutter.junixsocket', name: 'junixsocket-mysql'
+}
+
+dependencies {
+    implementation project(':migration-starter')
+}

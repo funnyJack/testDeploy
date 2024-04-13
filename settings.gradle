@@ -11,6 +11,10 @@ rootProject.name = 'testDeploy'
 
 // starter
 include 'spring-test-starter'
+include 'migration-starter'
 
 // frontend service
 include 'monolith-service'
+
+//job
+include 'migration-job'

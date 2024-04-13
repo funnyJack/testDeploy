@@ -1,0 +1,20 @@
+# port
+server:
+  port: ${PORT:8080}
+# basePath
+  servlet:
+    context-path: /api
+spring:
+  application:
+    name: monolith
+# database
+#spring.datasource.hikari.maximum-pool-size=8
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring.datasource.dbcp2.driver-class-name=com.mysql.cj.jdbc.Driver
+#spring.r2dbc.url=r2dbc:mysql://localhost:3306/testDeploy
+#spring.r2dbc.username=root
+#spring.r2dbc.password=123456
+  datasource:
+    url: jdbc:mysql://localhost:3306/testDeploy?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: 123456

@@ -1,4 +1,4 @@
-package com.hkmci.web.bms2.test.runner
+package com.funnyjack.test.runner
 
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
@@ -16,7 +16,6 @@ import javax.sql.DataSource
 class InitExtraDataRunner(private val dataSource: DataSource) : ApplicationRunner {
     override fun run(args: ApplicationArguments) {
         //should always not in prod env since this runner only used in test code
-        //sql file name with "-test" mean for goog-test.gfw.hkmci.com, default for hkmci.com
         val sqlFiles = listOf("init.sql")
             .map { ClassPathResource("/sql/$it") }
         val resourceDatabasePopulator = ResourceDatabasePopulator()

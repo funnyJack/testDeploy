@@ -15,5 +15,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
     implementation 'org.testcontainers:junit-jupiter:1.19.7'
     // https://mvnrepository.com/artifact/org.testcontainers/mysql
-    compileOnly 'org.testcontainers:mysql:1.19.7'
+    implementation 'org.testcontainers:mysql:1.19.7'
+}
+
+dependencies {
+    implementation project(':migration-starter')
 }

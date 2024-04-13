@@ -1,4 +1,4 @@
-package com.hkmci.web.bms2.test.initializer
+package com.funnyjack.test.initializer
 
 import org.springframework.boot.test.util.TestPropertyValues
 import org.springframework.context.ApplicationContextInitializer
