@@ -13,7 +13,7 @@ group = 'com.funnyJack'
 version = '0.0.1-SNAPSHOT'
 
 java {
-    sourceCompatibility = '21'
+    sourceCompatibility = '17'
 }
 
 repositories {
@@ -48,19 +48,17 @@ dependencies {
 }
 
 // jpa
-dependencies {
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
-    api group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
-}
+//dependencies {
+//    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+//    api group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+//}
 
 //r2dbc
 dependencies {
-    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-r2dbc
-    implementation 'org.springframework.data:spring-data-r2dbc:3.2.4'
     // https://mvnrepository.com/artifact/io.asyncer/r2dbc-mysql
     implementation 'io.asyncer:r2dbc-mysql'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-r2dbc
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-r2dbc', version: '3.2.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-r2dbc'
 }
 
 //database driver
@@ -72,7 +70,7 @@ dependencies {
 tasks.withType(KotlinCompile) {
     kotlinOptions {
         freeCompilerArgs += '-Xjsr305=strict'
-        jvmTarget = '21'
+        jvmTarget = '17'
     }
 }
 
