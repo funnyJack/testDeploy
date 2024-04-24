@@ -4,10 +4,11 @@ package com.funnyjack.testdeploy.entity
 //import jakarta.persistence.Entity
 //import jakarta.persistence.GeneratedValue
 //import jakarta.persistence.GenerationType
+import kotlinx.coroutines.flow.Flow
 import org.springframework.data.annotation.Id
-import org.springframework.data.r2dbc.repository.R2dbcRepository
+import org.springframework.data.domain.Pageable
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
-import reactor.core.publisher.Mono
 
 //@Entity
 class Test(
@@ -22,7 +23,8 @@ class Test(
 )
 
 @Repository
-interface TestRepository : R2dbcRepository<Test, String> {
-    fun findByName(name: String): Mono<Test>
-    fun existsByName(name: String): Mono<Boolean>
+interface TestRepository : CoroutineCrudRepository<Test, Long> {
+    suspend fun findAllBy(pageable: Pageable): Flow<Test>
+    suspend fun findByName(name: String): Test?
+    suspend fun existsByName(name: String): Boolean
 }

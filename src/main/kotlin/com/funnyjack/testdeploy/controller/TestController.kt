@@ -5,11 +5,12 @@ import com.funnyjack.testdeploy.model.TestPatchModel
 import com.funnyjack.testdeploy.model.TestViewModel
 import com.funnyjack.testdeploy.model.toViewModel
 import com.funnyjack.testdeploy.service.TestService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.http.HttpStatus
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
-
-
 
 @Transactional(rollbackFor = [Throwable::class])
 @RestController
@@ -27,6 +28,16 @@ class TestController(
 //        return testService.search(searchFilter.toSpecification(searchFilterCombineOperation), pageable)
 //            .map { it.toViewModel() }
 //    }
+
+    @GetMapping("search")
+    suspend fun findAll(
+        @RequestParam(defaultValue = "0") page: Int,
+        @RequestParam(defaultValue = "10") size: Int,
+        @RequestParam(defaultValue = "id") sort: String
+    ): Page<TestViewModel> {
+        val pageable = PageRequest.of(page, size, Sort.by(sort))
+        return testService.findAll(pageable).map { it.toViewModel() }
+    }
 
     @PostMapping
     suspend fun createTest(

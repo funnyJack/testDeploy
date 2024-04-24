@@ -6,19 +6,21 @@ import com.funnyjack.testdeploy.exception.ResourceNotFoundException
 import com.funnyjack.testdeploy.model.TestCreationModel
 import com.funnyjack.testdeploy.model.TestPatchModel
 import com.hiczp.spring.error.BadRequestException
-import kotlinx.coroutines.reactive.awaitFirstOrElse
-import kotlinx.coroutines.reactor.awaitSingle
-import kotlinx.coroutines.reactor.awaitSingleOrNull
+import kotlinx.coroutines.flow.toList
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageImpl
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class TestService(
         private val testRepository: TestRepository
 ) {
-    suspend fun get(name: String): Test = testRepository.findByName(name).awaitFirstOrElse {
-        throw ResourceNotFoundException(Test::class)
-    }
+    suspend fun get(name: String): Test =
+        testRepository.findByName(name) ?: throw ResourceNotFoundException(Test::class)
 
+    suspend fun findAll(pageable: Pageable): Page<Test> =
+        PageImpl(testRepository.findAllBy(pageable).toList(), pageable, testRepository.count())
 
 //    fun search(specification: Specification<Test>, pageable: Pageable) =
 //        testRepository.findAll(specification, pageable)
@@ -28,7 +30,7 @@ class TestService(
         return Test(
                 name = creationModel.name,
                 message = creationModel.message
-        ).save().awaitSingle()
+        ).save()
     }
 
     suspend fun modify(test: Test, patchModel: TestPatchModel): Test {
@@ -38,17 +40,17 @@ class TestService(
         return test.apply {
             patchModel.name?.also { name = it }
             patchModel.message?.also { message = it }
-        }.save().awaitSingle()
+        }.save()
     }
 
-    suspend fun delete(test: Test): Void? = testRepository.delete(test).awaitSingleOrNull()
+    suspend fun delete(test: Test) = testRepository.delete(test)
 
     private suspend fun ensureNameUnique(name: String) =
-            testRepository.existsByName(name).awaitSingle().let {
+        testRepository.existsByName(name).let {
                 if (it) {
                     throw BadRequestException("Request name: $name already exists")
                 }
             }
 
-    private fun Test.save() = testRepository.save(this)
+    private suspend fun Test.save() = testRepository.save(this)
 }
