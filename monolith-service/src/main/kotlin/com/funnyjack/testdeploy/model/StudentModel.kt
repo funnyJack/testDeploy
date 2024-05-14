@@ -1,6 +1,6 @@
 package com.funnyjack.testdeploy.model
 
-import com.funnyjack.testdeploy.entity.Test
+import com.funnyjack.testdeploy.entity.Student
 import com.funnyjack.testdeploy.jpaspecificationdsl.combineSpecification
 import com.funnyjack.testdeploy.jpaspecificationdsl.distinct
 import com.funnyjack.testdeploy.jpaspecificationdsl.like
@@ -8,39 +8,35 @@ import com.funnyjack.testdeploy.utils.SearchFilterCombineOperation
 import com.funnyjack.testdeploy.utils.fullTrim
 import org.springframework.data.jpa.domain.Specification
 
-//
-data class TestSearchFilter(
-    val nameLike: String? = null,
-    val messageLike: String? = null
+data class StudentSearchFilter(
+    val nameLike: String? = null
 ) {
-    fun toSpecification(searchFilterCombineOperation: SearchFilterCombineOperation): Specification<Test> {
+    fun toSpecification(searchFilterCombineOperation: SearchFilterCombineOperation): Specification<Student> {
         val nameLike = nameLike?.fullTrim()?.ifBlank { null }
-        val messageLike = messageLike?.fullTrim()?.ifBlank { null }
         return combineSpecification(
             listOf(
-                nameLike?.let { Test::name.like("%$it%") },
-                messageLike?.let { Test::message.like("%$it%") },
+                nameLike?.let { Student::name.like("%$it%") },
             ),
             searchFilterCombineOperation.toOperation()
         ).distinct()
     }
 }
 
-data class TestCreationModel(
+data class StudentCreationModel(
     val name: String,
-    val message: String
+    val course: String
 )
 
-data class TestPatchModel(
+data class StudentPatchModel(
     val name: String? = null,
-    val message: String? = null
+    val course: String? = null
 )
 
-data class TestViewModel(
+data class StudentViewModel(
     val name: String,
-    val message: String
+    val courseName: List<String>
 )
 
-fun Test.toViewModel() = TestViewModel(
-    name, message
+fun Student.toViewModel() = StudentViewModel(
+    name, courses.map { it.name }
 )

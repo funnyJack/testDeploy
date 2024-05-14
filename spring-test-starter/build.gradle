@@ -18,6 +18,7 @@ dependencies {
     implementation 'org.testcontainers:mysql:1.19.7'
 }
 
-dependencies {
-    implementation project(':migration-starter')
-}
+//
+//dependencies {
+//    implementation project(':migration-starter')
+//}
