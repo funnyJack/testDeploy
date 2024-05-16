@@ -9,6 +9,9 @@ dependencies {
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-testcontainers
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers:3.2.4'
+
 }
 
 //kotlin
@@ -41,5 +44,5 @@ dependencies {
 }
 
 dependencies {
-    implementation project(':spring-test-starter')
+    api project(':spring-test-starter')
 }

@@ -4,17 +4,18 @@ apply plugin: 'org.springframework.boot'
 //spring
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter:3.2.4'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.4'
 }
 
 //unix domain socket
 dependencies {
     // https://mvnrepository.com/artifact/com.kohlschutter.junixsocket/junixsocket-core
-    runtimeOnly group: 'com.kohlschutter.junixsocket', name: 'junixsocket-core'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-core:2.9.1'
     // https://mvnrepository.com/artifact/com.kohlschutter.junixsocket/junixsocket-mysql
-    runtimeOnly group: 'com.kohlschutter.junixsocket', name: 'junixsocket-mysql'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-mysql:2.9.1'
+
 }
 
 dependencies {

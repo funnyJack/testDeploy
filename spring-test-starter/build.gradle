@@ -11,13 +11,13 @@ dependencies {
 //test
 dependencies {
     // https://mvnrepository.com/artifact/org.testcontainers/testcontainers
-    implementation 'org.testcontainers:testcontainers:1.19.7'
+    api 'org.testcontainers:testcontainers:1.19.7'
     // https://mvnrepository.com/artifact/org.testcontainers/junit-jupiter
-    implementation 'org.testcontainers:junit-jupiter:1.19.7'
+    api 'org.testcontainers:junit-jupiter:1.19.7'
     // https://mvnrepository.com/artifact/org.testcontainers/mysql
-    implementation 'org.testcontainers:mysql:1.19.7'
+    api 'org.testcontainers:mysql:1.19.7'
 }
-
+//
 dependencies {
     implementation project(':migration-starter')
 }

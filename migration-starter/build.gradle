@@ -3,15 +3,16 @@ apply plugin: 'kotlin-spring'
 //spring
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-autoconfigure
-    compileOnly group: 'org.springframework.boot', name: 'spring-boot-autoconfigure'
+    compileOnly 'org.springframework.boot:spring-boot-autoconfigure:3.2.4'
+
 }
 
 //database migration
 dependencies {
     // https://mvnrepository.com/artifact/org.flywaydb/flyway-core
-    implementation group: 'org.flywaydb', name: 'flyway-core'
+    implementation 'org.flywaydb:flyway-core:10.13.0'
     // https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql
-    implementation group: 'org.flywaydb', name: 'flyway-mysql'
+    implementation 'org.flywaydb:flyway-mysql:10.13.0'
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
-    runtimeOnly group: 'com.mysql', name: 'mysql-connector-j'
+    implementation 'com.mysql:mysql-connector-j:8.4.0'
 }
